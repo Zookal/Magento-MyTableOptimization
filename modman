@@ -1,0 +1,4 @@
+src/app/etc/modules/*					app/etc/modules/
+src/app/code/community/Zookal/TableOpt		app/code/community/Zookal/TableOpt
+src/app/locale/en_US/Zookal_TableOpt.csv    app/locale/en_US/Zookal_TableOpt.csv
+src/shell/*     shell/

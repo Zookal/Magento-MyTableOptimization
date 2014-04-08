@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Zookal_TableOpt>
+            <version>1.0.0</version>
+        </Zookal_TableOpt>
+    </modules>
+
+    <global>
+        <helpers>
+            <zookal_tableopt>
+                <class>Zookal_TableOpt_Helper</class>
+            </zookal_tableopt>
+        </helpers>
+        <models>
+            <zookal_tableopt>
+                <class>Zookal_TableOpt_Model</class>
+            </zookal_tableopt>
+        </models>
+    </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Cms>
+                    <files>
+                        <default>Zookal_TableOpt.csv</default>
+                    </files>
+                </Mage_Cms>
+            </modules>
+        </translate>
+    </adminhtml>
+    <crontab>
+        <jobs>
+            <zookal_tableopt>
+                <schedule>
+                    <config_path>system/zookaltableopt/scheduler_cron_expr</config_path>
+                </schedule>
+                <run>
+                    <model>zookal_tableopt/optimize::run</model>
+                </run>
+            </zookal_tableopt>
+        </jobs>
+    </crontab>
+</config>

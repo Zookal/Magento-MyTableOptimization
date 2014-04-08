@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <system>
+            <groups>
+                <zookaltableopt translate="label">
+                    <label>MyTableOptimization [Zookal_TableOpt Module]</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>801</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <scheduler_cron_expr>
+                            <label>Run time</label>
+                            <comment>Cron expressions. (E.g. "25 * * * *")</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </scheduler_cron_expr>
+                        <tables_include>
+                            <label>Include tables in optimization</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </tables_include>
+                        <tables_exclude>
+                            <label>Exclude tables from optimization</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Excluding tables does only work when include tables is empty.</comment>
+                        </tables_exclude>
+                    </fields>
+                </zookaltableopt>
+            </groups>
+        </system>
+    </sections>
+</config>

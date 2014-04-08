@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Zookal_TableOpt>
+            <codePool>community</codePool>
+            <active>true</active>
+        </Zookal_TableOpt>
+    </modules>
+</config>

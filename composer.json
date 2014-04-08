@@ -1,0 +1,16 @@
+{
+    "name": "zookal/tableopt",
+    "type": "magento-module",
+    "license": "OSL-3.0",
+    "homepage": "https://github.com/Zookal/magento-mock",
+    "description": "A Magento extension which executes the MySQL command `OPTIMIZE TABLE`  for MyISAM, InnoDB, and ARCHIVE tables.",
+    "authors": [
+        {
+            "name": "Cyrill Schumacher",
+            "email": "{firstname}2{lastname}.fm"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
