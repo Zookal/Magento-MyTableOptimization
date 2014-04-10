@@ -14,6 +14,28 @@ During the optimize operations tables are **locked for write**. So optimizing th
 
 If a DML query wants to modify the table
 
+How to use
+----------
+
+You can run it either via command line or via cron job.
+
+```
+$ php tableOpt.php run
+```
+
+You must the module active in the backend otherwise it won't do anything. Navigate to
+System -> Configuration -> Advanced -> System -> MyTableOptimization [Zookal_TableOpt Module].
+
+The following settings can be found there:
+
+- Set module active
+- Set the cron time
+- Set which tables to include in the optimization process
+- Set which tables to exclude during the optimization process. Note that include overrides the exclude option.
+- Set if you want to skip empty tables
+
+On the command line you will have a nice output for each table and its duration.
+
 About
 -----
 
