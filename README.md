@@ -30,7 +30,7 @@ You can run it either via command line or via cron job.
 $ php tableOpt.php run
 ```
 
-You must the module active in the backend otherwise it won't do anything. Navigate to
+You must activate the module in the backend otherwise it won't do anything. Navigate to
 System -> Configuration -> Advanced -> System -> MyTableOptimization [Zookal_TableOpt Module].
 
 The following settings can be found there:
