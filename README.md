@@ -41,7 +41,7 @@ The following settings can be found there:
 - Set which tables to exclude during the optimization process. Note that include overrides the exclude option.
 - Set if you want to skip empty tables
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![Config Settings](https://raw.githubusercontent.com/Zookal/Magento-MyTableOptimization/master/doc/tableOptConfig.png "Config Settings")
 
 
 On the command line you will have a nice output for each table and its duration.
