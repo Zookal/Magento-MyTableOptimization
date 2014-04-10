@@ -44,6 +44,7 @@
     <default>
         <system>
             <zookaltableopt>
+                <is_active>0</is_active>
                 <scheduler_cron_expr>5 1 * * 0</scheduler_cron_expr>
                 <skip_empty_tables>1</skip_empty_tables>
             </zookaltableopt>

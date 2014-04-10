@@ -27,9 +27,12 @@ class Zookal_Table_Opt extends Mage_Shell_Abstract
     {
         if ($this->getArg('run')) {
 
-            Mage::getModel('zookal_tableopt/optimize')->setCli(true)->run();
-
-            echo "Tables optimized\n";
+            $result = Mage::getModel('zookal_tableopt/optimize')->setCli(true)->run();
+            if ($result) {
+                echo "Tables optimized\n";
+            } else {
+                echo "Tables NOT optimized\n";
+            }
         } elseif ($this->getArg('status')) {
             echo "Status Ok\n";
         } else {

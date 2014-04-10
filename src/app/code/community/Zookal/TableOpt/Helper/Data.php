@@ -66,4 +66,12 @@ class Zookal_TableOpt_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return (int)$this->getStore()->getConfig('system/zookaltableopt/skip_empty_tables') === 1;
     }
+
+    /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return (int)$this->getStore()->getConfig('system/zookaltableopt/is_active') === 1;
+    }
 }
