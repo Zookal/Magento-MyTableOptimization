@@ -41,4 +41,12 @@
             </zookal_tableopt>
         </jobs>
     </crontab>
+    <default>
+        <system>
+            <zookaltableopt>
+                <scheduler_cron_expr>5 1 * * 0</scheduler_cron_expr>
+                <skip_empty_tables>1</skip_empty_tables>
+            </zookaltableopt>
+        </system>
+    </default>
 </config>

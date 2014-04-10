@@ -13,7 +13,7 @@
                     <fields>
                         <scheduler_cron_expr>
                             <label>Run time</label>
-                            <comment>Cron expressions. (E.g. "25 * * * *")</comment>
+                            <comment>Cron expressions. (E.g. "5 1 * * 0" Sunday at 01:05am)</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -22,7 +22,8 @@
                         </scheduler_cron_expr>
                         <tables_include>
                             <label>Include tables in optimization</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>zookal_tableopt/system_config_tables</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -30,13 +31,25 @@
                         </tables_include>
                         <tables_exclude>
                             <label>Exclude tables from optimization</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>zookal_tableopt/system_config_tables</source_model>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment>Excluding tables does only work when include tables is empty.</comment>
                         </tables_exclude>
+                        <skip_empty_tables>
+                            <label>Skip empty Tables?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If a table has zero rows you can skip it ...</comment>
+                        </skip_empty_tables>
+
                     </fields>
                 </zookaltableopt>
             </groups>
