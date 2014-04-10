@@ -12,8 +12,6 @@ Good to know
 
 During the optimize operations tables are **locked for write**. So optimizing the `core_url_rewrite` with 493,294 rows takes around 30-60s.
 
-If a DML query wants to modify the table
-
 How to use
 ----------
 
