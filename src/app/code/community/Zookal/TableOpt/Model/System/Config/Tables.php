@@ -13,10 +13,11 @@
  * Do not edit or add to this file if you wish to upgrade this Module to
  * newer versions in the future.
  *
- * @category   Magento
- * @package    VinaiKopp_LoginLog
- * @copyright  Copyright (c) 2014 Vinai Kopp http://netzarbeiter.com
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Zookal_TableOpt
+ * @package     Model
+ * @author      Cyrill Schumacher | {firstName}@{lastName}.fm | @SchumacherFM
+ * @copyright   Copyright (c) Zookal Pty Ltd
+ * @license     OSL - Open Software Licence 3.0 | http://opensource.org/licenses/osl-3.0.php
  */
 class Zookal_TableOpt_Model_System_Config_Tables
 {
@@ -25,7 +26,7 @@ class Zookal_TableOpt_Model_System_Config_Tables
     /**
      * @var Magento_Db_Adapter_Pdo_Mysql
      */
-    protected $_connection;
+    protected $_connection = null;
 
     /**
      * @param Magento_Db_Adapter_Pdo_Mysql $connection
@@ -42,9 +43,10 @@ class Zookal_TableOpt_Model_System_Config_Tables
      */
     public function getConnection()
     {
-        if (!$this->_connection) {
+        if (null === $this->_connection) {
             // @codeCoverageIgnoreStart
-            $this->_connection = Mage::getSingleton('core/resource')->getConnection(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
+            $this->_connection = Mage::getSingleton('core/resource')
+                ->getConnection(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
         }
         // @codeCoverageIgnoreEnd
         return $this->_connection;

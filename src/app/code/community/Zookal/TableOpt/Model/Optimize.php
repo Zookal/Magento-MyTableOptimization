@@ -1,6 +1,18 @@
 <?php
 
 /**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this Module to
+ * newer versions in the future.
+ *
  * @category    Zookal_TableOpt
  * @package     Model
  * @author      Cyrill Schumacher | {firstName}@{lastName}.fm | @SchumacherFM
@@ -108,7 +120,8 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
     public function getConnection()
     {
         if (null === $this->_connection) {
-            $this->_connection = Mage::getSingleton('core/resource')->getConnection(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
+            $this->_connection = Mage::getSingleton('core/resource')
+                ->getConnection(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
         }
         return $this->_connection;
     }
@@ -119,12 +132,10 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
     public function getTables()
     {
         $included = $this->getHelper()->getIncludedTables();
-
         if (count($included) > 0) {
             $included = array_flip($included);
             return $this->_getTables($included);
         }
-
         $excluded = array_flip($this->getHelper()->getExcludedTables());
         return $this->_getTables(null, $excluded);
     }
@@ -137,24 +148,32 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
      */
     protected function _getTables(array $included = null, array $excluded = null)
     {
-        $skippy = $this->getHelper()->isSkipEmptyTables();
         $return = array();
         foreach ($this->_tableStatuses as $table) {
-            if (null !== $included && isset($included[$table['Name']])) {
-                if (true === $skippy && $table['Rows'] > 0) {
-                    $return[] = $table['Name'];
-                } elseif (false === $skippy) {
-                    $return[] = $table['Name'];
-                }
-            } elseif (null !== $excluded && !isset($excluded[$table['Name']])) {
-                if (true === $skippy && $table['Rows'] > 0) {
-                    $return[] = $table['Name'];
-                } elseif (false === $skippy) {
-                    $return[] = $table['Name'];
-                }
+            $t = $this->_getTable($table);
+            if (null !== $included && isset($included[$table['Name']]) && $t) {
+                $return[] = $t;
+            } elseif (null !== $excluded && !isset($excluded[$table['Name']]) && $t) {
+                $return[] = $t;
             }
         }
         return $return;
+    }
+
+    /**
+     * @param array $table
+     *
+     * @return bool|string
+     */
+    protected function _getTable(array &$table)
+    {
+        $skippy = $this->getHelper()->isSkipEmptyTables();
+        if (true === $skippy && $table['Rows'] > 0) {
+            return $table['Name'];
+        } elseif (false === $skippy) {
+            return $table['Name'];
+        }
+        return false;
     }
 
     /**
