@@ -36,11 +36,13 @@ class Zookal_TableOpt_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @param string $path
+     *
      * @return array
      */
-    public function getIncludedTables()
+    protected function _getConfigArray($path)
     {
-        $value = trim($this->getStore()->getConfig('system/zookaltableopt/tables_include'));
+        $value = trim($this->getStore()->getConfig($path));
         if (true === empty($value)) {
             return array();
         }
@@ -50,13 +52,17 @@ class Zookal_TableOpt_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @return array
      */
+    public function getIncludedTables()
+    {
+        return $this->_getConfigArray('system/zookaltableopt/tables_include');
+    }
+
+    /**
+     * @return array
+     */
     public function getExcludedTables()
     {
-        $value = trim($this->getStore()->getConfig('system/zookaltableopt/tables_exclude'));
-        if (true === empty($value)) {
-            return array();
-        }
-        return explode(',', $value);
+        return $this->_getConfigArray('system/zookaltableopt/tables_exclude');
     }
 
     /**

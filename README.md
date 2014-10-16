@@ -75,8 +75,13 @@ About
 - It's unit tested! :-) @todo
 - It runs on production!
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Zookal/Magento-MyTableOptimization/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Zookal/Magento-MyTableOptimization/?branch=master)
+
+[![Build Status](https://scrutinizer-ci.com/g/Zookal/Magento-MyTableOptimization/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Zookal/Magento-MyTableOptimization/build-status/master)
+
 License
 -------
+
 [OSL - Open Software Licence 3.0](http://opensource.org/licenses/osl-3.0.php)
 
 Copyright
