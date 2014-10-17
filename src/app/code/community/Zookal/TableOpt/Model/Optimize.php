@@ -55,42 +55,68 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
             return false;
         }
 
-        $isCli         = $this->hasCli();
         $tables        = $this->getTables();
-        $engines       = $this->getTableEngines();
         $return        = array();
         $totalDuration = 0;
-        if (true === $isCli) {
-            echo count($tables) . ' Tables' . PHP_EOL;
-            flush();
-        }
+        $this->_cliOut(count($tables) . ' Tables');
         foreach ($tables as $table) {
-            $engine = (isset($engines[$table]) ? $engines[$table] : '');
-            $method = '_optimize' . $engine;
-            if (method_exists($this, $method)) {
-                $start = microtime(true);
-                $this->$method($table);
-                $duration = microtime(true) - $start;
-                $totalDuration += $duration;
-                $output = "+ $table $engine " . sprintf('%.4f', $duration) . 's';
-                if (true === $isCli) {
-                    echo $output . PHP_EOL;
-                    flush();
-                }
-                $return[] = $output;
-            } else {
-                $output = "- $table $engine";
-                if (true === $isCli) {
-                    echo $output . PHP_EOL;
-                }
-                $return[] = $output;
+            // in GoLang the _runMethod would now run concurrent ...
+            $duration = $this->_runMethod($table);
+            $ts       = $table . ' ' . $this->_getEngine($table);
+            $totalDuration += $duration;
+            $output = '- ' . $ts;
+            if ($duration > 0) {
+                $output = '+ ' . $ts . ' ' . sprintf('%.4f', $duration) . 's';
             }
+            $this->_cliOut($output);
+            $return[] = $output;
         }
-        if (true === $isCli) {
-            printf('Total duration: %.4f seconds' . PHP_EOL, $totalDuration);
-        }
+        $this->_cliOut(sprintf('Total duration: %.4f seconds', $totalDuration));
         $return[] = $totalDuration;
         return $return;
+    }
+
+    /**
+     * @param string $table
+     *
+     * @return float
+     */
+    protected function _runMethod($table)
+    {
+        $method = '_optimize' . $this->_getEngine($table);
+        if (false === method_exists($this, $method)) {
+            return 0;
+        }
+        $start = microtime(true);
+        $this->$method($table);
+        $duration = microtime(true) - $start;
+        return $duration;
+    }
+
+    /**
+     * @param string $table
+     *
+     * @return string
+     */
+    protected function _getEngine(&$table)
+    {
+        $engines = $this->getTableEngines();
+        $e       = '';
+        if (true === isset($engines[$table])) {
+            $e = $engines[$table];
+        }
+        return $e;
+    }
+
+    /**
+     * @param string $msg
+     */
+    protected function _cliOut($msg)
+    {
+        if (true === $this->hasCli()) {
+            echo $msg . PHP_EOL;
+            flush();
+        }
     }
 
     /**
@@ -98,7 +124,7 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
      */
     protected function _optimizeinnodb($tableName)
     {
-        Mage::helper('zookal_tableopt')->getConnection()->changeTableEngine($tableName, 'InnoDB');
+        $this->getHelper()->getConnection()->changeTableEngine($tableName, 'InnoDB');
     }
 
     /**
@@ -106,7 +132,7 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
      */
     protected function _optimizemyisam($tableName)
     {
-        Mage::helper('zookal_tableopt')->getConnection()->query('OPTIMIZE TABLE `' . $tableName . '`');
+        $this->getHelper()->getConnection()->query('OPTIMIZE TABLE `' . $tableName . '`');
     }
 
     /**
@@ -177,7 +203,7 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
     protected function _initTableStatuses()
     {
         /** @var Varien_Db_Statement_Pdo_Mysql $result */
-        $result               = Mage::helper('zookal_tableopt')->getConnection()->query('SHOW TABLE STATUS');
+        $result               = $this->getHelper()->getConnection()->query('SHOW TABLE STATUS');
         $this->_tableStatuses = $result->fetchAll();
     }
 
