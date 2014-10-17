@@ -50,7 +50,14 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
         if (true !== $this->getHelper()->isActive()) {
             return false;
         }
+        return $this->_run();
+    }
 
+    /**
+     * @return array|false
+     */
+    protected function _run()
+    {
         $tables        = $this->getTables();
         $return        = array();
         $totalDuration = 0;
