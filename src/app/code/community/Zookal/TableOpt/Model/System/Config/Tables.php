@@ -21,36 +21,10 @@
  */
 class Zookal_TableOpt_Model_System_Config_Tables
 {
+    /**
+     * @var array
+     */
     protected $_tables = null;
-
-    /**
-     * @var Magento_Db_Adapter_Pdo_Mysql
-     */
-    protected $_connection = null;
-
-    /**
-     * @param Magento_Db_Adapter_Pdo_Mysql $connection
-     */
-    public function __construct($connection = null)
-    {
-        if ($connection) {
-            $this->_connection = $connection;
-        }
-    }
-
-    /**
-     * @return Magento_Db_Adapter_Pdo_Mysql
-     */
-    public function getConnection()
-    {
-        if (null === $this->_connection) {
-            // @codeCoverageIgnoreStart
-            $this->_connection = Mage::getSingleton('core/resource')
-                ->getConnection(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
-        }
-        // @codeCoverageIgnoreEnd
-        return $this->_connection;
-    }
 
     /**
      * @return array
@@ -58,7 +32,7 @@ class Zookal_TableOpt_Model_System_Config_Tables
     public function getTables()
     {
         if (null === $this->_tables) {
-            $this->_tables = $this->getConnection()->listTables();
+            $this->_tables = Mage::helper('zookal_tableopt')->getConnection()->listTables();
         }
         return $this->_tables;
     }

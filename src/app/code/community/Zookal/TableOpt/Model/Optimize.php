@@ -27,11 +27,6 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
     protected $_helper;
 
     /**
-     * @var Magento_Db_Adapter_Pdo_Mysql
-     */
-    protected $_connection = null;
-
-    /**
      * @var array
      */
     protected $_tableStatuses = array();
@@ -103,7 +98,7 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
      */
     protected function _optimizeinnodb($tableName)
     {
-        $this->getConnection()->changeTableEngine($tableName, 'InnoDB');
+        Mage::helper('zookal_tableopt')->getConnection()->changeTableEngine($tableName, 'InnoDB');
     }
 
     /**
@@ -111,19 +106,7 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
      */
     protected function _optimizemyisam($tableName)
     {
-        $this->getConnection()->query('OPTIMIZE TABLE `' . $tableName . '`');
-    }
-
-    /**
-     * @return Magento_Db_Adapter_Pdo_Mysql
-     */
-    public function getConnection()
-    {
-        if (null === $this->_connection) {
-            $this->_connection = Mage::getSingleton('core/resource')
-                ->getConnection(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
-        }
-        return $this->_connection;
+        Mage::helper('zookal_tableopt')->getConnection()->query('OPTIMIZE TABLE `' . $tableName . '`');
     }
 
     /**
@@ -194,7 +177,7 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
     protected function _initTableStatuses()
     {
         /** @var Varien_Db_Statement_Pdo_Mysql $result */
-        $result               = $this->getConnection()->query('SHOW TABLE STATUS');
+        $result               = Mage::helper('zookal_tableopt')->getConnection()->query('SHOW TABLE STATUS');
         $this->_tableStatuses = $result->fetchAll();
     }
 

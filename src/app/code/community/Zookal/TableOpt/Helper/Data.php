@@ -22,16 +22,23 @@
 class Zookal_TableOpt_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
+     * @var Magento_Db_Adapter_Pdo_Mysql
+     */
+    protected $_connection = null;
+
+    /**
      * @var Mage_Core_Model_Store
      */
     protected $_store;
 
     /**
-     * @param Mage_Core_Model_Store $store
+     * @param Mage_Core_Model_Store        $store
+     * @param Magento_Db_Adapter_Pdo_Mysql $con
      */
-    public function __construct(Mage_Core_Model_Store $store = null)
+    public function __construct(Mage_Core_Model_Store $store = null, Magento_Db_Adapter_Pdo_Mysql $con = null)
     {
-        $this->_store = $store;
+        $this->_store      = $store;
+        $this->_connection = $con;
     }
 
     /**
@@ -91,5 +98,17 @@ class Zookal_TableOpt_Helper_Data extends Mage_Core_Helper_Abstract
     public function isActive()
     {
         return (int)$this->getStore()->getConfig('system/zookaltableopt/is_active') === 1;
+    }
+
+    /**
+     * @return Magento_Db_Adapter_Pdo_Mysql
+     */
+    public function getConnection()
+    {
+        if (null === $this->_connection) {
+            $this->_connection = Mage::getSingleton('core/resource')
+                ->getConnection(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
+        }
+        return $this->_connection;
     }
 }
