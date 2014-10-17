@@ -29,16 +29,22 @@ class Zookal_TableOpt_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @var Mage_Core_Model_Store
      */
-    protected $_store;
+    protected $_store = null;
 
     /**
      * @param Mage_Core_Model_Store        $store
-     * @param Magento_Db_Adapter_Pdo_Mysql $con
+     * @param Magento_Db_Adapter_Pdo_Mysql $connection
      */
-    public function __construct(Mage_Core_Model_Store $store = null, Magento_Db_Adapter_Pdo_Mysql $con = null)
+    public function __construct(Mage_Core_Model_Store $store = null, Magento_Db_Adapter_Pdo_Mysql $connection = null)
     {
-        $this->_store      = $store;
-        $this->_connection = $con;
+        // sometimes those args are either null or '' :-(
+        // With GoLang and static typing this would not happen :-)
+        if (false === empty($store)) {
+            $this->_store = $store;
+        }
+        if (false === empty($connection)) {
+            $this->_connection = $connection;
+        }
     }
 
     /**
@@ -46,7 +52,7 @@ class Zookal_TableOpt_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getStore()
     {
-        if (!$this->_store) {
+        if (null === $this->_store) {
             // @codeCoverageIgnoreStart
             $this->_store = Mage::app()->getStore();
         }

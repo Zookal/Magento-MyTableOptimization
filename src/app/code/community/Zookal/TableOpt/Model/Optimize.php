@@ -32,14 +32,10 @@ class Zookal_TableOpt_Model_Optimize extends Varien_Object
     protected $_tableStatuses = array();
 
     /**
-     * @param Magento_Db_Adapter_Pdo_Mysql $connection
-     * @param Zookal_TableOpt_Helper_Data  $helper
+     * @param Zookal_TableOpt_Helper_Data $helper
      */
-    public function __construct($connection = null, $helper = null)
+    public function __construct($helper = null)
     {
-        if (false === empty($connection)) {
-            $this->_connection = $connection;
-        }
         if (false === empty($helper)) {
             $this->_helper = $helper;
         }
